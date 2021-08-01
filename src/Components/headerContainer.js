@@ -9,7 +9,6 @@ const { Option } = Select;
 function HeaderContainer() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("");
-  // const [selection, setSelection] = useState(false);
   const [countryInfo, setCountryInfo] = useState([]);
 
   useEffect(() => {
@@ -24,10 +23,12 @@ function HeaderContainer() {
         .then((res) => res.json())
         .then((data) => {
           setCountryInfo(data);
-
-          // setSelection(false);
         });
-      // console.log(countryInfo);
+
+      const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+      document.title = `data from ${
+        country !== "worldwide" ? regionNames.of(country) : "worldwide"
+      }`;
     };
     country !== undefined && country && countryInfos();
   }, [country]);
