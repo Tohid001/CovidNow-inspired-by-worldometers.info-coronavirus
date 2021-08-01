@@ -9,12 +9,12 @@ const { Option } = Select;
 function HeaderContainer() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("");
-  const [selection, setSelection] = useState(false);
+  // const [selection, setSelection] = useState(false);
   const [countryInfo, setCountryInfo] = useState([]);
 
   useEffect(() => {
     // eslint-disable-next-line
-    const countryInfo = async () => {
+    const countryInfos = async () => {
       const url =
         country === "worldwide"
           ? "https://disease.sh/v3/covid-19/countries"
@@ -24,12 +24,13 @@ function HeaderContainer() {
         .then((res) => res.json())
         .then((data) => {
           setCountryInfo(data);
-          console.log(countryInfo);
-          setSelection(false);
+
+          // setSelection(false);
         });
+      // console.log(countryInfo);
     };
-    countryInfo();
-  }, [selection]);
+    country !== undefined && country && countryInfos();
+  }, [country]);
 
   useEffect(() => {
     const getCountries = async () => {
@@ -50,51 +51,52 @@ function HeaderContainer() {
   }, [countries]);
 
   return (
-    <div style={{ width: "700px", marginTop: "20px" }}>
-      <Row
-        style={{
-          marginLeft: "25px",
-        }}
-        gutter={50}
-      >
-        <Col span={8}>
-          <Title
-            level={3}
-            style={{
-              textAlign: "center",
-              verticalAlign: "center",
-              margin: "0px",
-            }}
-          >
-            Covid 19 tracker
-          </Title>
-        </Col>
-        <Col>
-          <Select
-            showSearch
-            style={{ width: 200, margin: "0px" }}
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            value={country || undefined}
-            onChange={(value) => {
-              console.log(value);
-              setCountry(value);
-              setSelection(true);
-            }}
-            placeholder="search to select"
-          >
-            <Option value="worlwide">Worldwide</Option>
-            {countries.map((country) => (
-              <Option key={country.id} value={country.value}>
-                {country.name}
-              </Option>
-            ))}
-          </Select>
-        </Col>
-      </Row>
-      ,
-    </div>
+    <>
+      <div style={{ width: "700px", marginTop: "20px" }}>
+        <Row
+          style={{
+            marginLeft: "25px",
+          }}
+          gutter={50}
+        >
+          <Col span={8}>
+            <Title
+              level={3}
+              style={{
+                textAlign: "center",
+                verticalAlign: "center",
+                margin: "0px",
+              }}
+            >
+              Covid 19 tracker
+            </Title>
+          </Col>
+          <Col>
+            <Select
+              showSearch
+              style={{ width: 200, margin: "0px" }}
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              value={country || undefined}
+              onChange={(value) => {
+                console.log(value);
+                setCountry(value);
+              }}
+              placeholder="search to select"
+            >
+              <Option value="worldwide">Worldwide</Option>
+              {countries.map((country) => (
+                <Option key={country.id} value={country.value}>
+                  {country.name}
+                </Option>
+              ))}
+            </Select>
+          </Col>
+        </Row>
+      </div>
+      {countryInfo && <p> {JSON.stringify(countryInfo)}</p>}
+    </>
   );
 }
 
