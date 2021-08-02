@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "antd/dist/antd.css";
-import { Typography, Row, Col, Select } from "antd";
+import { Typography, Row, Col, Select, Avatar } from "antd";
 // import { useEffect, useState } from "react";
 
 const { Title } = Typography;
@@ -9,10 +9,12 @@ const { Option } = Select;
 function HeaderContainer() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("");
-  const [countryInfo, setCountryInfo] = useState([]);
+  const [countryInfo, setCountryInfo] = useState(null);
 
+  const selectRef = useRef(null);
+
+  //for selection
   useEffect(() => {
-    // eslint-disable-next-line
     const countryInfos = async () => {
       const url =
         country === "worldwide"
@@ -25,14 +27,18 @@ function HeaderContainer() {
           setCountryInfo(data);
         });
 
-      const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
       document.title = `data from ${
-        country !== "worldwide" ? regionNames.of(country) : "worldwide"
+        country !== "worldwide"
+          ? <Avatar src={country.flag} /> +
+            new Intl.DisplayNames(["en"], { type: "region" }).of(country)
+          : "worldwide"
       }`;
+      console.log(document.title);
     };
     country !== undefined && country && countryInfos();
   }, [country]);
 
+  //for dropdown
   useEffect(() => {
     const getCountries = async () => {
       await fetch("https://disease.sh/v3/covid-19/countries")
@@ -43,6 +49,7 @@ function HeaderContainer() {
               name: country.country,
               value: country.countryInfo.iso2,
               id: country.countryInfo._id,
+              flag: country.countryInfo.flag,
             };
           });
           setCountries(countries);
@@ -75,21 +82,36 @@ function HeaderContainer() {
           <Col>
             <Select
               showSearch
+              placeholder="search to select a country"
               style={{ width: 200, margin: "0px" }}
               filterOption={(input, option) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                option.children.children
+                  .toLowerCase()
+                  .indexOf(input.toLowerCase()) >= 0
               }
               value={country || undefined}
               onChange={(value) => {
                 console.log(value);
                 setCountry(value);
               }}
-              placeholder="search to select"
+              ref={selectRef}
+              onSelect={() => {
+                selectRef.current.blur();
+              }}
             >
-              <Option value="worldwide">Worldwide</Option>
+              <Option value="worldwide" title="hello">
+                Worldwide
+              </Option>
               {countries.map((country) => (
-                <Option key={country.id} value={country.value}>
-                  {country.name}
+                <Option
+                  key={country.id}
+                  value={country.value}
+                  // label={<Avatar src={country.flag} />}
+                >
+                  <div>
+                    <Avatar src={country.flag} />
+                    {` ${country.name}`}
+                  </div>
                 </Option>
               ))}
             </Select>
