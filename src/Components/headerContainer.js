@@ -83,13 +83,12 @@ function HeaderContainer() {
             <Select
               showSearch
               placeholder="search to select a country"
-              style={{ width: 200, margin: "0px" }}
-              filterOption={(input, option) =>
-                option.children.children
-                  .toLowerCase()
-                  .indexOf(input.toLowerCase()) >= 0
-              }
+              style={{ width: "222px", margin: "0px" }}
+              // filterOption={(input, option) =>
+              //   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              // }
               value={country || undefined}
+              size="large"
               onChange={(value) => {
                 console.log(value);
                 setCountry(value);
@@ -98,15 +97,17 @@ function HeaderContainer() {
               onSelect={() => {
                 selectRef.current.blur();
               }}
+              optionLabelProp="label"
+              optionFilterProp="label"
             >
-              <Option value="worldwide" title="hello">
+              <Option value="worldwide" title="hello" label="worldwide">
                 Worldwide
               </Option>
               {countries.map((country) => (
                 <Option
                   key={country.id}
                   value={country.value}
-                  // label={<Avatar src={country.flag} />}
+                  label={` ${country.value} ${country.name}`}
                 >
                   <div>
                     <Avatar src={country.flag} />
