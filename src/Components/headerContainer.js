@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "antd/dist/antd.css";
-import { Typography, Row, Col, Select, Avatar } from "antd";
+import { Typography, Row, Col, Select, Avatar, Spin } from "antd";
 // import { useEffect, useState } from "react";
 
 const { Title } = Typography;
@@ -10,6 +10,7 @@ function HeaderContainer() {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState("");
   const [countryInfo, setCountryInfo] = useState(null);
+  const [spining, setSpining] = useState(false);
 
   const selectRef = useRef(null);
 
@@ -27,10 +28,11 @@ function HeaderContainer() {
           setCountryInfo(data);
         });
 
+      setSpining(false);
+
       document.title = `data from ${
         country !== "worldwide"
-          ? <Avatar src={country.flag} /> +
-            new Intl.DisplayNames(["en"], { type: "region" }).of(country)
+          ? new Intl.DisplayNames(["en"], { type: "region" }).of(country)
           : "worldwide"
       }`;
       console.log(document.title);
@@ -96,6 +98,7 @@ function HeaderContainer() {
               ref={selectRef}
               onSelect={() => {
                 selectRef.current.blur();
+                setSpining(true);
               }}
               optionLabelProp="label"
               optionFilterProp="label"
@@ -119,6 +122,7 @@ function HeaderContainer() {
           </Col>
         </Row>
       </div>
+      {spining && <Spin tip="loading..." />}
       {countryInfo && <p> {JSON.stringify(countryInfo)}</p>}
     </>
   );
