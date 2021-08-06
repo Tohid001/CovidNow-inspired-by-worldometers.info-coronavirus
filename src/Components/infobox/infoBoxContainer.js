@@ -7,9 +7,13 @@ import { Row, Col } from "antd";
 function InfoBoxContainer() {
   const { countryInfo } = useContext(UserContext);
   return (
-    <Row justify="space-between">
+    <Row justify="center" gutter={20}>
       <Col>
-        <InfoBox title="Cases" cases={undefined} total={countryInfo.cases} />
+        <InfoBox
+          title="Cases"
+          cases={countryInfo.todayCases}
+          total={countryInfo.cases}
+        />
       </Col>
       <Col>
         <InfoBox

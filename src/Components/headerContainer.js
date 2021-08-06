@@ -15,8 +15,8 @@ function HeaderContainer() {
 
   return (
     <>
-      <div>
-        <Row justify="space-between">
+      <div style={{ marginBottom: "30px", marginTop: "30px" }}>
+        <Row justify="center" gutter={50}>
           <Col>
             <Title
               level={3}
