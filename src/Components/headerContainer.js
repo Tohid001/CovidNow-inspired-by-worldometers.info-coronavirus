@@ -1,75 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
+import { UserContext } from "./Context/context";
 import "antd/dist/antd.css";
-import { Typography, Row, Col, Select, Avatar, Spin } from "antd";
-// import { useEffect, useState } from "react";
+import { Typography, Row, Col, Select, Avatar, Skeleton } from "antd";
+import { GlobalOutlined } from "@ant-design/icons";
 
 const { Title } = Typography;
 const { Option } = Select;
 
 function HeaderContainer() {
-  const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState("");
-  const [countryInfo, setCountryInfo] = useState(null);
-  const [spining, setSpining] = useState(false);
+  const { isDataLoaded, country, countryInfo, countries, dispatch } =
+    useContext(UserContext);
 
   const selectRef = useRef(null);
 
-  //for selection
-  useEffect(() => {
-    const countryInfos = async () => {
-      const url =
-        country === "worldwide"
-          ? "https://disease.sh/v3/covid-19/countries"
-          : `https://disease.sh/v3/covid-19/countries/${country}`;
-
-      await fetch(url)
-        .then((res) => res.json())
-        .then((data) => {
-          setCountryInfo(data);
-        });
-
-      setSpining(false);
-
-      document.title = `data from ${
-        country !== "worldwide"
-          ? new Intl.DisplayNames(["en"], { type: "region" }).of(country)
-          : "worldwide"
-      }`;
-      console.log(document.title);
-    };
-    country !== undefined && country && countryInfos();
-  }, [country]);
-
-  //for dropdown
-  useEffect(() => {
-    const getCountries = async () => {
-      await fetch("https://disease.sh/v3/covid-19/countries")
-        .then((res) => res.json())
-        .then((data) => {
-          const countries = data.map((country) => {
-            return {
-              name: country.country,
-              value: country.countryInfo.iso2,
-              id: country.countryInfo._id,
-              flag: country.countryInfo.flag,
-            };
-          });
-          setCountries(countries);
-        });
-    };
-    getCountries();
-  }, [countries]);
-
   return (
     <>
-      <div style={{ width: "700px", marginTop: "20px" }}>
-        <Row
-          style={{
-            marginLeft: "25px",
-          }}
-          gutter={50}
-        >
-          <Col span={8}>
+      <div>
+        <Row justify="space-between">
+          <Col>
             <Title
               level={3}
               style={{
@@ -82,23 +30,37 @@ function HeaderContainer() {
             </Title>
           </Col>
           <Col>
+            {/* <Skeleton
+              loading={!isDataLoaded}
+              active
+              // size="default"
+              // shape="circle"
+            >
+              <Avatar
+                src={`${
+                  country === "worldwide"
+                    ? "https://www.kindpng.com/picc/m/300-3004852_education-globe-earth-vector-globe-icon-hd-png.png"
+                    : countries.flag
+                }`}
+              />
+            </Skeleton> */}
             <Select
               showSearch
               placeholder="search to select a country"
-              style={{ width: "222px", margin: "0px" }}
+              style={{ width: "200px", margin: "0px" }}
               // filterOption={(input, option) =>
               //   option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
               // }
-              value={country || undefined}
-              size="large"
+              value={country}
+              size="medium"
               onChange={(value) => {
                 console.log(value);
-                setCountry(value);
+                dispatch({ type: "setCountry", value: value });
               }}
               ref={selectRef}
               onSelect={() => {
                 selectRef.current.blur();
-                setSpining(true);
+                dispatch({ type: "dataLoad", value: false });
               }}
               optionLabelProp="label"
               optionFilterProp="label"
@@ -122,8 +84,6 @@ function HeaderContainer() {
           </Col>
         </Row>
       </div>
-      {spining && <Spin tip="loading..." />}
-      {countryInfo && <p> {JSON.stringify(countryInfo)}</p>}
     </>
   );
 }

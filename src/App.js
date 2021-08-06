@@ -1,16 +1,14 @@
 import "./App.css";
-import Header from "./Components/headerContainer";
+import { UserProvider } from "./Components/Context/context";
+import AppLeft from "./Components/app-left/appLeft";
 // import store from "./redux/store";
 // import { Provider } from "react-redux";
 
 function App() {
   return (
-    // <Provider store={store}>
-
-    // </Provider>
-    <div className="App">
-      <Header />
-    </div>
+    <UserProvider>
+      <AppLeft />
+    </UserProvider>
   );
 }
 
