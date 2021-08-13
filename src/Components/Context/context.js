@@ -8,6 +8,9 @@ const initialState = {
   countryInfo: null,
   countries: [],
   isDataLoaded: false,
+  isContinent: false,
+  countriesForTable: null,
+  isCountriesForTableLoaded: false,
 };
 const reducer = (state, { type, value }) => {
   switch (type) {
@@ -19,6 +22,12 @@ const reducer = (state, { type, value }) => {
       return { ...state, countries: value };
     case "dataLoad":
       return { ...state, isDataLoaded: value };
+    case "setContinent":
+      return { ...state, isContinent: value };
+    case "setCountriesForTable":
+      return { ...state, countriesForTable: value };
+    case "tableLoad":
+      return { ...state, isCountriesForTableLoaded: value };
 
     default:
       return state;
@@ -32,9 +41,13 @@ function UserProvider(props) {
   //get all countries
   useEffect(() => {
     const getCountries = async () => {
-      await fetch("https://disease.sh/v3/covid-19/countries")
+      await fetch(
+        " https://covid-proxy.herokuapp.com/https://disease.sh/v3/covid-19/countries"
+      )
         .then((res) => res.json())
         .then((data) => {
+          console.log("countries");
+          console.log(data);
           const countries = data.map((country) => {
             return {
               name: country.country,
@@ -43,7 +56,9 @@ function UserProvider(props) {
               flag: country.countryInfo.flag,
             };
           });
+          const countriesForTable = data;
           dispatch({ type: "setCountries", value: countries });
+          dispatch({ type: "setCountriesForTable", value: countriesForTable });
         });
     };
     getCountries();
@@ -54,11 +69,13 @@ function UserProvider(props) {
     const getCountryInfos = async () => {
       const url =
         country === "worldwide"
-          ? "https://disease.sh/v3/covid-19/all"
-          : `https://disease.sh/v3/covid-19/countries/${country}`;
+          ? " https://covid-proxy.herokuapp.com/https://disease.sh/v3/covid-19/all"
+          : ` https://covid-proxy.herokuapp.com/https://disease.sh/v3/covid-19/countries/${country}`;
       await fetch(url)
         .then((res) => res.json())
         .then((data) => {
+          console.log("countryinfos ");
+          console.log(data);
           dispatch({ type: "setCountryInfo", value: data });
         });
       const countryName =
