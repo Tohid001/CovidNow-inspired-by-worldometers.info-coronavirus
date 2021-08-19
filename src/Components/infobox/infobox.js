@@ -9,8 +9,16 @@ function Infobox({ title, cases, total }) {
   return (
     <Card title={<InfoBoxTitle content={title} />} hoverable>
       <Skeleton loading={!isDataLoaded} active>
-        <Statistic title="Today" value={cases} />
-        <Statistic title="Total" value={total} />
+        <Statistic
+          title="Today"
+          value={cases}
+          valueStyle={{ fontWeight: "normal", fontSize: "initial" }}
+        />
+        <Statistic
+          title="Total"
+          value={total}
+          valueStyle={{ fontWeight: "normal", fontSize: "initial" }}
+        />
       </Skeleton>
     </Card>
   );

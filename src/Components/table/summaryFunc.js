@@ -1,7 +1,3 @@
-import { Table, Typography } from "antd";
-
-const { Text } = Typography;
-
 export const summaryFunc = (pageData) => {
   let totalCases = 0;
   let totalNewCases = 0;
@@ -34,42 +30,15 @@ export const summaryFunc = (pageData) => {
     }
   );
 
-  return (
-    <>
-      <Table.Summary.Row>
-        <Table.Summary.Cell>{null}</Table.Summary.Cell>
-
-        <Table.Summary.Cell>Total</Table.Summary.Cell>
-        <Table.Summary.Cell>
-          <Text>{totalCases}</Text>
-        </Table.Summary.Cell>
-        <Table.Summary.Cell>
-          <Text>{totalNewCases}</Text>
-        </Table.Summary.Cell>
-        <Table.Summary.Cell>
-          <Text>{totalDeaths}</Text>
-        </Table.Summary.Cell>
-        <Table.Summary.Cell>
-          <Text>{totalNewDeaths}</Text>
-        </Table.Summary.Cell>
-        <Table.Summary.Cell>
-          <Text>{totalRecovered}</Text>
-        </Table.Summary.Cell>
-        <Table.Summary.Cell>
-          <Text>{totalNewRecovered}</Text>
-        </Table.Summary.Cell>
-        <Table.Summary.Cell>
-          <Text>{totalActiveCases}</Text>
-        </Table.Summary.Cell>
-        <Table.Summary.Cell>
-          <Text>{totalSeriousCritical}</Text>
-        </Table.Summary.Cell>
-        <Table.Summary.Cell>{null}</Table.Summary.Cell>
-        <Table.Summary.Cell>{null}</Table.Summary.Cell>
-        <Table.Summary.Cell>{null}</Table.Summary.Cell>
-        <Table.Summary.Cell>{null}</Table.Summary.Cell>
-        <Table.Summary.Cell>{null}</Table.Summary.Cell>
-      </Table.Summary.Row>
-    </>
-  );
+  return {
+    country: "Total",
+    cases: totalCases,
+    todayCases: totalNewCases,
+    deaths: totalDeaths,
+    todayDeaths: totalNewDeaths,
+    recovered: totalRecovered,
+    todayRecovered: totalNewRecovered,
+    active: totalActiveCases,
+    critical: totalSeriousCritical,
+  };
 };

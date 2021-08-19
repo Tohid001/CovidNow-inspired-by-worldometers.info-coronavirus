@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Spinner from "../spinner";
 import HeaderContainer from "../headerContainer";
 import InfoBoxContainer from "../infobox/infoBoxContainer";
-import MainTAble from "../table/mainTable";
+import MyTable from "../table/myTable";
 import { UserContext } from "../Context/context";
 import "antd/dist/antd.css";
 import { Spin } from "antd";
@@ -19,7 +19,7 @@ function AppLeft() {
         <Spinner tip="Loading Primary Infos..." />
       )}
       {countriesForTable ? (
-        <MainTAble />
+        <MyTable />
       ) : (
         <Spinner tip="Loading Detailed Infos..." />
       )}
