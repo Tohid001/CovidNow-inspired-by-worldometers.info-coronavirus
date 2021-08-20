@@ -10,6 +10,7 @@ import { Table } from "antd";
 function MainTable({ filteredData }) {
   const { countriesForTable } = useContext(UserContext);
   const [page, setPage] = useState(1);
+  console.log("i am rendering ..");
 
   return (
     <Table
@@ -21,7 +22,7 @@ function MainTable({ filteredData }) {
       columns={Columns(page)}
       dataSource={
         filteredData && filteredData.length
-          ? filteredData
+          ? [summaryFunc(filteredData), ...filteredData]
           : [summaryFunc(countriesForTable), ...countriesForTable]
       }
       scroll={{ x: "max-content" }}

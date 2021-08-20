@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Input, Row, Col } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
 import MainTable from "./mainTable";
@@ -6,17 +6,23 @@ import { UserContext } from "../Context/context";
 
 function MyTable() {
   const { countriesForTable } = useContext(UserContext);
-  const [inputValue, setinputValue] = useState("");
-  const [filteredData, setFilteredData] = useState(countriesForTable);
+  const [inputValue, setinputValue] = useState(null);
+  const [filteredData, setFilteredData] = useState(null);
+
   useEffect(() => {
-    const globalSearch = () => {
-      const filtered = filteredData.filter((value) => {
+    if (inputValue) {
+      // console.log(inputValue.toLowerCase());
+      const filtered = countriesForTable.filter((value) => {
+        // console.log(value.country.toLowerCase());
+
         return value.country.toLowerCase().includes(inputValue.toLowerCase());
       });
       setFilteredData(filtered);
-    };
-    inputValue && globalSearch();
+    } else {
+      setFilteredData(null);
+    }
   }, [inputValue]);
+
   return (
     <div>
       <Row>
