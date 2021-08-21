@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useMemo } from "react";
 import "./table.css";
 import { UserContext } from "../Context/context";
 import { Columns } from "./columns";
@@ -9,9 +9,14 @@ import { Table } from "antd";
 
 function MainTable({ filteredData }) {
   const { countriesForTable } = useContext(UserContext);
-  const [page, setPage] = useState(1);
+  // const [page, setPage] = useState(1);
   console.log("i am rendering ..");
-
+  const memoizedColumns = useMemo(() => Columns(), []);
+  // const memoizedData = useMemo(
+  //   () =>
+  //     ,
+  //   []
+  // );
   return (
     <Table
       className="table"
@@ -19,7 +24,7 @@ function MainTable({ filteredData }) {
       bordered
       sticky
       tableLayout="fixed"
-      columns={Columns(page)}
+      columns={memoizedColumns}
       dataSource={
         filteredData && filteredData.length
           ? [summaryFunc(filteredData), ...filteredData]
