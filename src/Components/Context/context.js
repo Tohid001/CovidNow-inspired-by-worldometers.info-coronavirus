@@ -41,9 +41,7 @@ function UserProvider(props) {
   //get all countries
   useEffect(() => {
     const getCountries = async () => {
-      await fetch(
-        " https://covid-proxy.herokuapp.com/https://disease.sh/v3/covid-19/countries"
-      )
+      await fetch("https://disease.sh/v3/covid-19/countries")
         .then((res) => res.json())
         .then((data) => {
           console.log("countries");
@@ -69,8 +67,8 @@ function UserProvider(props) {
     const getCountryInfos = async () => {
       const url =
         country === "worldwide"
-          ? " https://covid-proxy.herokuapp.com/https://disease.sh/v3/covid-19/all"
-          : ` https://covid-proxy.herokuapp.com/https://disease.sh/v3/covid-19/countries/${country}`;
+          ? " https://disease.sh/v3/covid-19/all"
+          : ` https://disease.sh/v3/covid-19/countries/${country}`;
       await fetch(url)
         .then((res) => res.json())
         .then((data) => {
