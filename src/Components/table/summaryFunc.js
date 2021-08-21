@@ -1,4 +1,4 @@
-export const summaryFunc = (pageData) => {
+export const summaryFunc = (tableData) => {
   let totalCases = 0;
   let totalNewCases = 0;
   let totalDeaths = 0;
@@ -8,7 +8,7 @@ export const summaryFunc = (pageData) => {
   let totalActiveCases = 0;
   let totalSeriousCritical = 0;
 
-  pageData.forEach(
+  tableData.data.forEach(
     ({
       cases,
       todayCases,
@@ -31,7 +31,7 @@ export const summaryFunc = (pageData) => {
   );
 
   return {
-    country: "Total",
+    country: tableData.continent,
     cases: totalCases,
     todayCases: totalNewCases,
     deaths: totalDeaths,

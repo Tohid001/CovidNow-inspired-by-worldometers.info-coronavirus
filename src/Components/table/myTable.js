@@ -8,7 +8,11 @@ import { UserContext } from "../Context/context";
 function MyTable() {
   const { countriesForTable } = useContext(UserContext);
   const [inputValue, setinputValue] = useState(null);
-  const [filteredData, setFilteredData] = useState(null);
+
+  const [tableDataWithSum, setTabledDataWithSum] = useState({
+    data: countriesForTable,
+    continent: "Total",
+  });
 
   const originalContinents = [
     ...new Set(
@@ -23,30 +27,31 @@ function MyTable() {
       return value || null;
     }),
   ];
-  console.log(continents);
 
-  const clickHandler = (continent) => {
-    const filtered = (!filteredData ? countriesForTable : filteredData).filter(
-      (value) => {
+  const clickHandlerFunc = (continent) => {
+    continent === "All" &&
+      setTabledDataWithSum({ data: countriesForTable, continent: "Total" });
+    if (continent !== "All") {
+      let filtered = countriesForTable.filter((value) => {
         return value.continent.toLowerCase().includes(continent.toLowerCase());
-      }
-    );
-    setFilteredData(filtered);
+      });
+      setTabledDataWithSum({ data: filtered, continent: continent });
+    }
   };
 
-  useEffect(() => {
-    if (inputValue) {
-      // console.log(inputValue.toLowerCase());
-      const filtered = countriesForTable.filter((value) => {
-        // console.log(value.country.toLowerCase());
+  // useEffect(() => {
+  //   if (inputValue) {
+  //     // console.log(inputValue.toLowerCase());
+  //     const filtered = countriesForTable.filter((value) => {
+  //       // console.log(value.country.toLowerCase());
 
-        return value.country.toLowerCase().includes(inputValue.toLowerCase());
-      });
-      setFilteredData(filtered);
-    } else {
-      setFilteredData(null);
-    }
-  }, [inputValue]);
+  //       return value.country.toLowerCase().includes(inputValue.toLowerCase());
+  //     });
+  //     setFilteredData(filtered);
+  //   } else {
+  //     setFilteredData(null);
+  //   }
+  // }, [inputValue]);
 
   return (
     <div>
@@ -56,7 +61,7 @@ function MyTable() {
             return (
               <Button
                 continent={value}
-                clickHandler={clickHandler}
+                clickHandler={clickHandlerFunc}
                 key={value}
               />
             );
@@ -73,7 +78,7 @@ function MyTable() {
           />
         </Col>
         <Col>
-          <MainTable filteredData={filteredData} />
+          <MainTable tableData={tableDataWithSum} />
         </Col>
       </Row>
     </div>

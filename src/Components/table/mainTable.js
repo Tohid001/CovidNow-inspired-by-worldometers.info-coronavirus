@@ -7,16 +7,19 @@ import { summaryFunc } from "./summaryFunc";
 import "antd/dist/antd.css";
 import { Table } from "antd";
 
-function MainTable({ filteredData }) {
+function MainTable({ tableData }) {
   const { countriesForTable } = useContext(UserContext);
   // const [page, setPage] = useState(1);
-  console.log("i am rendering ..");
+  console.log("MAintable rendering ..");
   const memoizedColumns = useMemo(() => Columns(), []);
   // const memoizedData = useMemo(
   //   () =>
   //     ,
   //   []
   // );
+  // filteredData && filteredData.length
+  //         ? [summaryFunc(filteredData), ...filteredData]
+  //         : [summaryFunc(countriesForTable), ...countriesForTable]
   return (
     <Table
       className="table"
@@ -25,11 +28,7 @@ function MainTable({ filteredData }) {
       sticky
       tableLayout="fixed"
       columns={memoizedColumns}
-      dataSource={
-        filteredData && filteredData.length
-          ? [summaryFunc(filteredData), ...filteredData]
-          : [summaryFunc(countriesForTable), ...countriesForTable]
-      }
+      dataSource={[summaryFunc(tableData), ...tableData.data]}
       scroll={{ x: "max-content" }}
       pagination={false}
       // // pagination={{
