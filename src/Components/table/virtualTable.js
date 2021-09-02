@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import "antd/dist/antd.css";
 import "./table.css";
-import { VariableSizeGrid as Grid } from "react-window";
-import ResizeObserver from "rc-resize-observer";
+import { FixedSizeGrid as Grid } from "react-window";
+// import ResizeObserver from "rc-resize-observer";
 import classNames from "classnames";
 import { Table, Statistic } from "antd";
 
 export default function VirtualTable(props) {
   const { columns, scroll } = props;
-  const [tableWidth, setTableWidth] = useState(0);
-  const widthColumnCount = columns.filter(({ width }) => !width).length;
-  const mergedColumns = columns.map((column) => {
-    // if (column.width) {
-    //   return column;
-    // }
+  // const [tableWidth, setTableWidth] = useState(0);
+  // const widthColumnCount = columns.filter(({ width }) => !width).length;
+  // const mergedColumns = columns.map((column) => {
+  //   // if (column.width) {
+  //   //   return column;
+  //   // }
 
-    return { ...column, width: Math.floor(tableWidth / widthColumnCount) };
-  });
+  //   return { ...column, width: Math.floor(tableWidth / widthColumnCount) };
+  // });
   const gridRef = useRef();
   const [connectObject] = useState(() => {
     const obj = {};
@@ -33,14 +33,14 @@ export default function VirtualTable(props) {
     return obj;
   });
 
-  const resetVirtualGrid = () => {
-    gridRef.current.resetAfterIndices({
-      columnIndex: 0,
-      shouldForceUpdate: true,
-    });
-  };
+  // const resetVirtualGrid = () => {
+  //   gridRef.current.resetAfterIndices({
+  //     columnIndex: 0,
+  //     shouldForceUpdate: true,
+  //   });
+  // };
 
-  useEffect(() => resetVirtualGrid, [tableWidth]);
+  // useEffect(() => resetVirtualGrid, []);
 
   const renderVirtualList = (rawData, { scrollbarSize, ref, onScroll }) => {
     ref.current = connectObject;
@@ -49,18 +49,13 @@ export default function VirtualTable(props) {
       <Grid
         ref={gridRef}
         className="virtual-grid"
-        columnCount={mergedColumns.length}
-        columnWidth={(index) => {
-          const { width } = mergedColumns[index];
-          return totalHeight > scroll.y && index === mergedColumns.length - 1
-            ? width - scrollbarSize - 1
-            : width;
-        }}
+        columnCount={columns.length}
+        columnWidth={107.071}
         // columnWidth={()=>200}
-        height={scroll.y}
+        height={400}
         rowCount={rawData.length}
-        rowHeight={() => 50}
-        width={tableWidth}
+        rowHeight={70}
+        width={1499}
         onScroll={({ scrollLeft }) => {
           onScroll({
             scrollLeft,
@@ -68,7 +63,7 @@ export default function VirtualTable(props) {
         }}
       >
         {({ columnIndex, rowIndex, style }) => {
-          const data = rawData[rowIndex][mergedColumns[columnIndex].dataIndex];
+          const data = rawData[rowIndex][columns[columnIndex].dataIndex];
           return (
             // <div
             //   className={classNames("virtual-table-cell", {
@@ -87,7 +82,7 @@ export default function VirtualTable(props) {
                   display: "flex",
                   border: "1px solid rgb(201, 199, 193)",
                   // justifyContent: "center",
-                  // alignItems: "center",
+                  alignItems: "center",
                 }}
               >
                 {data}
@@ -99,7 +94,7 @@ export default function VirtualTable(props) {
                   border: "1px solid rgb(201, 199, 193)",
                   display: "flex",
                   justifyContent: "center",
-                  // alignItems: "center",
+                  alignItems: "center",
                   // wordWrap: "break-word",
                   // wordBreak: "break-word",
                 }}
@@ -122,24 +117,16 @@ export default function VirtualTable(props) {
   };
 
   return (
-    <div>
-      <ResizeObserver
-        onResize={({ width }) => {
-          console.log(`tableWidth is ${width}`);
-          setTableWidth(width);
+    <div style={{ border: "1px solid rgb(201, 199, 193)", width: "1499px" }}>
+      <Table
+        {...props}
+        className="virtual-table"
+        columns={columns}
+        pagination={false}
+        components={{
+          body: renderVirtualList,
         }}
-      >
-        <Table
-          {...props}
-          bordered
-          className="virtual-table"
-          columns={mergedColumns}
-          pagination={false}
-          components={{
-            body: renderVirtualList,
-          }}
-        />
-      </ResizeObserver>
+      />
     </div>
   );
 } // Usage
