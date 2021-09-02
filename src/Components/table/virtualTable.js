@@ -64,6 +64,24 @@ export default function VirtualTable(props) {
       >
         {({ columnIndex, rowIndex, style }) => {
           const data = rawData[rowIndex][columns[columnIndex].dataIndex];
+          if (columnIndex === 0) {
+            return (
+              <div
+                style={{
+                  ...style,
+                  backgroundColor:
+                    rowIndex === 0 ? " rgb(240, 239, 235)" : null,
+                  display: "flex",
+                  border: "1px solid rgb(201, 199, 193)",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                {rowIndex === 0 ? null : rowIndex}
+              </div>
+            );
+          }
+
           return (
             // <div
             //   className={classNames("virtual-table-cell", {
@@ -87,7 +105,7 @@ export default function VirtualTable(props) {
                   alignItems: "center",
                 }}
               >
-                {data}
+                {data ? data : ""}
               </div>
             ) : (
               <div
@@ -104,7 +122,7 @@ export default function VirtualTable(props) {
                 }}
               >
                 <Statistic
-                  value={data !== 0 && !data ? undefined : data}
+                  value={data !== 0 && !data ? "" : data}
                   valueStyle={{
                     fontWeight: "normal",
                     fontSize: "initial",
@@ -121,7 +139,12 @@ export default function VirtualTable(props) {
   };
 
   return (
-    <div style={{ border: "1px solid rgb(201, 199, 193)", width: "1499px" }}>
+    <div
+      style={{
+        border: "1px solid rgb(201, 199, 193)",
+        width: "1499px",
+      }}
+    >
       <Table
         {...props}
         className="virtual-table"

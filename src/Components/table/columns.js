@@ -3,19 +3,19 @@ import Title from "./titleComponent";
 
 export const Columns = (page) => {
   return [
-    // {
-    //   title: <Title value="#" />,
-    //   dataIndex: "sr no.",
-    //   key: "sr no.",
-    //   render: (value, item, index) => (
-    //     <div style={{ margin: "auto -30px" }}>
-    //       <small>{index ? index : null}</small>
-    //     </div>
-    //   ),
-    //   fixed: "left",
-    //   align: "center",
-    //   // width: 20,
-    // },
+    {
+      title: "#",
+      dataIndex: "oneCasePerPeople",
+      key: "oneCasePerPeople",
+      // render: (value, item, index) => (
+      //   <div style={{ margin: "auto -30px" }}>
+      //     <small>{index ? index : null}</small>
+      //   </div>
+      // ),
+      // fixed: "left",
+      // align: "center",
+      width: 107.071,
+    },
     {
       title: "Country",
       dataIndex: "country",
