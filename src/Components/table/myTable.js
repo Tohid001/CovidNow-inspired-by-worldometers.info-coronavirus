@@ -77,10 +77,13 @@ function MyTable() {
             }}
           />
         </Col>
-        <Col>
-          <MainTable tableData={tableDataWithSum} />
-        </Col>
+        {/* <Col>
+         
+        </Col> */}
       </Row>
+      <div style={{ margin: 10 }}>
+        <MainTable tableData={tableDataWithSum} />
+      </div>
     </div>
   );
 }

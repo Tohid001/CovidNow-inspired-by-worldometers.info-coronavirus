@@ -7,7 +7,7 @@ function TitleComponent({ value }) {
         // margin: "auto -15px",
         wordWrap: "normal",
         wordBreak: "normal",
-        // width: "auto",
+        width: "100px",
       }}
     >
       {value}

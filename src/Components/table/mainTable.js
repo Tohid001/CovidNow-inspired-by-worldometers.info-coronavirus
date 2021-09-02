@@ -5,7 +5,8 @@ import { Columns } from "./columns";
 import { summaryFunc } from "./summaryFunc";
 
 import "antd/dist/antd.css";
-import { Table } from "antd";
+// import { Table } from "antd";
+import VirtualTable from "./virtualTable";
 
 function MainTable({ tableData }) {
   const { countriesForTable } = useContext(UserContext);
@@ -21,15 +22,15 @@ function MainTable({ tableData }) {
   //         ? [summaryFunc(filteredData), ...filteredData]
   //         : [summaryFunc(countriesForTable), ...countriesForTable]
   return (
-    <Table
-      className="table"
-      style={{ marginTop: "20px" }}
-      bordered
-      sticky
-      tableLayout="fixed"
+    <VirtualTable
+      // className="table"
+      // style={{ marginTop: "20px" }}
+      // bordered
+      // sticky
+      // tableLayout="fixed"
       columns={memoizedColumns}
-      dataSource={[summaryFunc(tableData), ...tableData.data]}
-      scroll={{ x: "max-content" }}
+      dataSource={tableData.data}
+      scroll={{ x: "max-content", y: 300 }}
       pagination={false}
       // // pagination={{
       // //   position: ["bottomCenter"],
