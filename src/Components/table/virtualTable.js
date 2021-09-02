@@ -105,6 +105,7 @@ export default function VirtualTable(props) {
                   border: "1px solid rgb(201, 199, 193)",
                   // justifyContent: "center",
                   alignItems: "center",
+                  paddingLeft: "5px",
                 }}
               >
                 {data ? data : ""}
@@ -124,7 +125,15 @@ export default function VirtualTable(props) {
                 }}
               >
                 <Statistic
-                  value={data !== 0 && !data ? "" : data}
+                  value={
+                    rowIndex === 0
+                      ? data === 0 || !data
+                        ? " "
+                        : data
+                      : data !== 0 && !data
+                      ? ""
+                      : data
+                  }
                   valueStyle={{
                     fontWeight: "normal",
                     fontSize: "initial",
