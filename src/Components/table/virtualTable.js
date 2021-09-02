@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "antd/dist/antd.css";
 import "./table.css";
-import { FixedSizeGrid as Grid } from "react-window";
+import { VariableSizeGrid as Grid } from "react-window";
 // import ResizeObserver from "rc-resize-observer";
 import classNames from "classnames";
 import { Table, Statistic } from "antd";
@@ -50,12 +50,14 @@ export default function VirtualTable(props) {
         ref={gridRef}
         className="virtual-grid"
         columnCount={columns.length}
-        columnWidth={107.071}
+        columnWidth={(index) => {
+          return index === 0 ? 40 : 1499 / 14;
+        }}
         // columnWidth={()=>200}
         height={400}
         rowCount={rawData.length}
-        rowHeight={70}
-        width={1499}
+        rowHeight={() => 70}
+        width={1516 + 40}
         onScroll={({ scrollLeft }) => {
           onScroll({
             scrollLeft,
@@ -142,7 +144,7 @@ export default function VirtualTable(props) {
     <div
       style={{
         border: "1px solid rgb(201, 199, 193)",
-        width: "1499px",
+        width: `${1499 + 40}px`,
       }}
     >
       <Table
