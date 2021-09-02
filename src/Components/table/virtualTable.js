@@ -79,6 +79,8 @@ export default function VirtualTable(props) {
               <div
                 style={{
                   ...style,
+                  backgroundColor:
+                    rowIndex === 0 ? " rgb(240, 239, 235)" : null,
                   display: "flex",
                   border: "1px solid rgb(201, 199, 193)",
                   // justifyContent: "center",
@@ -92,6 +94,8 @@ export default function VirtualTable(props) {
                 style={{
                   ...style,
                   border: "1px solid rgb(201, 199, 193)",
+                  backgroundColor:
+                    rowIndex === 0 ? " rgb(240, 239, 235)" : null,
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -100,7 +104,7 @@ export default function VirtualTable(props) {
                 }}
               >
                 <Statistic
-                  value={data !== 0 && !data ? " " : data}
+                  value={data !== 0 && !data ? undefined : data}
                   valueStyle={{
                     fontWeight: "normal",
                     fontSize: "initial",

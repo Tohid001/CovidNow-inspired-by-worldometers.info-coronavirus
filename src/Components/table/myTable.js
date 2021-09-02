@@ -11,7 +11,7 @@ function MyTable() {
 
   const [tableDataWithSum, setTabledDataWithSum] = useState({
     data: countriesForTable,
-    continent: "Total",
+    continent: "World(total)",
   });
 
   const originalContinents = [
@@ -30,12 +30,18 @@ function MyTable() {
 
   const clickHandlerFunc = (continent) => {
     continent === "All" &&
-      setTabledDataWithSum({ data: countriesForTable, continent: "Total" });
+      setTabledDataWithSum({
+        data: countriesForTable,
+        continent: "World(total)",
+      });
     if (continent !== "All") {
       let filtered = countriesForTable.filter((value) => {
         return value.continent.toLowerCase().includes(continent.toLowerCase());
       });
-      setTabledDataWithSum({ data: filtered, continent: continent });
+      setTabledDataWithSum({
+        data: filtered,
+        continent: `${continent}(total)`,
+      });
     }
   };
 
