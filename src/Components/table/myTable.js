@@ -63,15 +63,7 @@ function MyTable() {
     <div>
       <Row>
         <Col>
-          {continents.map((value) => {
-            return (
-              <Button
-                continent={value}
-                clickHandler={clickHandlerFunc}
-                key={value}
-              />
-            );
-          })}
+          <Button continents={continents} clickHandler={clickHandlerFunc} />
         </Col>
         <Col span={24}>
           <Input
