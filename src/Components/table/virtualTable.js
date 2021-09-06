@@ -160,19 +160,29 @@ export default function VirtualTable(props) {
   return (
     <div
       style={{
-        border: "1px solid rgb(201, 199, 193)",
-        width: `${1499 + 41}px`,
+        width: "100vw",
+        overflow: "auto",
+        // border: "1px solid red",
+        // margin: "o auto",
       }}
     >
-      <Table
-        {...props}
-        className="virtual-table"
-        columns={columns}
-        pagination={false}
-        components={{
-          body: renderVirtualList,
+      <div
+        style={{
+          border: "1px solid rgb(201, 199, 193)",
+          width: `${1499 + 41}px`,
         }}
-      />
+      >
+        <Table
+          {...props}
+          // style={{ position: "sticky" }}
+          className="virtual-table"
+          columns={columns}
+          pagination={false}
+          components={{
+            body: renderVirtualList,
+          }}
+        />
+      </div>
     </div>
   );
 } // Usage

@@ -79,7 +79,7 @@ function MyTable() {
          
         </Col> */}
       </Row>
-      <div style={{ margin: 10 }}>
+      <div>
         <MainTable tableData={tableDataWithSum} />
       </div>
     </div>
