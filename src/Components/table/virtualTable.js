@@ -33,6 +33,14 @@ export default function VirtualTable(props) {
     return obj;
   });
 
+  useEffect(() => {
+    gridRef.current.scrollToItem({
+      align: "start",
+      columnIndex: 0,
+      rowIndex: 0,
+    });
+  });
+
   // const resetVirtualGrid = () => {
   //   gridRef.current.resetAfterIndices({
   //     columnIndex: 0,
@@ -129,10 +137,10 @@ export default function VirtualTable(props) {
                     rowIndex === 0
                       ? data === 0 || !data
                         ? " "
-                        : data
+                        : `${data}`
                       : data !== 0 && !data
                       ? ""
-                      : data
+                      : `${data}`
                   }
                   valueStyle={{
                     fontWeight: "normal",
@@ -153,7 +161,7 @@ export default function VirtualTable(props) {
     <div
       style={{
         border: "1px solid rgb(201, 199, 193)",
-        width: `${1499 + 40}px`,
+        width: `${1499 + 41}px`,
       }}
     >
       <Table
