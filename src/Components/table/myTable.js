@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Input, Row, Col } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { Row, Col } from "antd";
+// import { SearchOutlined } from "@ant-design/icons";
 import Button from "./button";
 import MainTable from "./mainTable";
+import Input from "./input";
 import { UserContext } from "../Context/context";
 
 function MyTable() {
   const { countriesForTable } = useContext(UserContext);
-  const [inputValue, setinputValue] = useState(null);
 
   const [tableDataWithSum, setTabledDataWithSum] = useState({
     data: countriesForTable,
@@ -45,19 +45,14 @@ function MyTable() {
     }
   };
 
-  // useEffect(() => {
-  //   if (inputValue) {
-  //     // console.log(inputValue.toLowerCase());
-  //     const filtered = countriesForTable.filter((value) => {
-  //       // console.log(value.country.toLowerCase());
-
-  //       return value.country.toLowerCase().includes(inputValue.toLowerCase());
-  //     });
-  //     setFilteredData(filtered);
-  //   } else {
-  //     setFilteredData(null);
-  //   }
-  // }, [inputValue]);
+  const searchHandlerFuc = (inputValue) => {
+    if (inputValue) {
+      let filtered = countriesForTable.filter((value) => {
+        return value.country.toLowerCase().includes(inputValue.toLowerCase());
+      });
+      setTabledDataWithSum({ ...tableDataWithSum, data: filtered });
+    }
+  };
 
   return (
     <div>
@@ -66,14 +61,7 @@ function MyTable() {
           <Button continents={continents} clickHandler={clickHandlerFunc} />
         </Col>
         <Col span={24}>
-          <Input
-            placeholder="filter by country..."
-            prefix={<SearchOutlined />}
-            value={inputValue}
-            onChange={(e) => {
-              setinputValue(e.target.value);
-            }}
-          />
+          <Input searchFilter={searchHandlerFuc} />
         </Col>
         {/* <Col>
          
