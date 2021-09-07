@@ -160,10 +160,10 @@ export default function VirtualTable(props) {
   return (
     <div
       style={{
-        width: "100vw",
+        width: "95%",
         overflow: "auto",
         // border: "1px solid red",
-        // margin: "o auto",
+        margin: "0 auto",
       }}
     >
       <div

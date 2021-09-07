@@ -22,30 +22,61 @@
 
 // export default MyButton;
 
-import React, { useState } from "react";
-import { Radio } from "antd";
+// import React, { useState } from "react";
+// import { Radio } from "antd";
 
-function MyButton({ continents, clickHandler }) {
-  const [value, setValue] = useState("All");
-  console.log("button rendering");
+// function MyButton({ continents, clickHandler }) {
+//   const [value, setValue] = useState("All");
+//   console.log("button rendering");
 
-  const options = continents.map((value) => {
-    // console.log(value);
-    return { label: value, value: value };
-  });
-  return (
-    <Radio.Group
-      value={value}
-      optionType="button"
-      buttonStyle="solid"
-      options={options}
-      onChange={(e) => {
-        console.log(e.target.value);
-        setValue(e.target.value);
-        clickHandler(e.target.value);
+//   const options = continents.map((value) => {
+//     // console.log(value);
+//     return { label: value, value: value };
+//   });
+//   return (
+//     <Radio.Group
+//       value={value}
+//       optionType="button"
+//       buttonStyle="solid"
+//       options={options}
+//       onChange={(e) => {
+//         console.log(e.target.value);
+//         setValue(e.target.value);
+//         clickHandler(e.target.value);
+//       }}
+//     ></Radio.Group>
+//   );
+// }
+
+// export default React.memo(MyButton);
+
+import React from "react";
+import "antd/dist/antd.css";
+import { Menu, Dropdown, Button } from "antd";
+import { FilterFilled } from "@ant-design/icons";
+
+function button({ continents, clickHandler }) {
+  const menu = (
+    <Menu
+      onClick={({ key }) => {
+        clickHandler(key);
       }}
-    ></Radio.Group>
+      selectable
+    >
+      {continents.map((value) => (
+        <Menu.Item key={value}>{value}</Menu.Item>
+      ))}
+    </Menu>
+  );
+
+  return (
+    <Dropdown overlay={menu} trigger={["click"]} arrow placement="topRight">
+      <Button size="small">
+        <FilterFilled />
+        Button
+      </Button>
+    </Dropdown>
   );
 }
 
-export default React.memo(MyButton);
+export default button;
