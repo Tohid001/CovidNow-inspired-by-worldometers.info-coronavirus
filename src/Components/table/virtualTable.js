@@ -168,7 +168,7 @@ export default function VirtualTable(props) {
     >
       <div
         style={{
-          border: "1px solid rgb(201, 199, 193)",
+          // border: "1px solid rgb(201, 199, 193)",
           width: `${1499 + 41}px`,
         }}
       >
