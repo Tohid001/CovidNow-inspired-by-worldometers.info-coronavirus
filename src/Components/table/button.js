@@ -50,16 +50,34 @@
 
 // export default React.memo(MyButton);
 
-import React from "react";
+import React, { useContext } from "react";
 import "antd/dist/antd.css";
 import { Menu, Dropdown, Button } from "antd";
 import { FilterFilled } from "@ant-design/icons";
+import { UserContext } from "../Context/context";
 
-function button({ continents, clickHandler }) {
+function MyButton({ setContinent, filterCriterias }) {
+  const { countriesForTable } = useContext(UserContext);
+  console.log("buttons rendering");
+
+  const originalContinents = [
+    ...new Set(
+      countriesForTable.map((value) => {
+        return value.continent;
+      })
+    ),
+  ];
+  const continents = [
+    "All",
+    ...originalContinents.filter((value) => {
+      return value || null;
+    }),
+  ];
+
   const menu = (
     <Menu
       onClick={({ key }) => {
-        clickHandler(key);
+        setContinent({ ...filterCriterias, continent: key, isFiltered: true });
       }}
       selectable
     >
@@ -79,4 +97,4 @@ function button({ continents, clickHandler }) {
   );
 }
 
-export default button;
+export default React.memo(MyButton);

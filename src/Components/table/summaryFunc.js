@@ -31,7 +31,7 @@ export const summaryFunc = (tableData) => {
   );
 
   return {
-    country: tableData.continent,
+    country: `${tableData.continent}(total)`,
     cases: totalCases,
     todayCases: totalNewCases,
     deaths: totalDeaths,
