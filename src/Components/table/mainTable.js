@@ -30,7 +30,7 @@ function MainTable({ tableData }) {
       // tableLayout="fixed"
       columns={memoizedColumns}
       dataSource={[summaryFunc(tableData), ...tableData.data]}
-      scroll={{ y: 300 }}
+      scroll={{ y: 0 }}
       pagination={false}
       // // pagination={{
       // //   position: ["bottomCenter"],

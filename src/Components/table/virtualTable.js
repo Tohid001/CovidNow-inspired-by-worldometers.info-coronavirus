@@ -7,7 +7,7 @@ import classNames from "classnames";
 import { Table, Statistic } from "antd";
 
 export default function VirtualTable(props) {
-  const { columns, scroll } = props;
+  const { columns, scroll, dataSource } = props;
   // const [tableWidth, setTableWidth] = useState(0);
   // const widthColumnCount = columns.filter(({ width }) => !width).length;
   // const mergedColumns = columns.map((column) => {
@@ -52,7 +52,7 @@ export default function VirtualTable(props) {
 
   const renderVirtualList = (rawData, { scrollbarSize, ref, onScroll }) => {
     ref.current = connectObject;
-    const totalHeight = rawData.length * 54;
+    // const totalHeight = rawData.length * 54;
     return (
       <Grid
         ref={gridRef}
@@ -62,7 +62,7 @@ export default function VirtualTable(props) {
           return index === 0 ? 40 : 1499 / 14;
         }}
         // columnWidth={()=>200}
-        height={400}
+        height={dataSource.length * 70 >= 400 ? 400 : dataSource.length * 70}
         rowCount={rawData.length}
         rowHeight={() => 70}
         width={1516 + 40}
