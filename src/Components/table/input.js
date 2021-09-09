@@ -32,7 +32,8 @@ function InputBox({ setInputValue, filterCriterias }) {
 
   return (
     <Input
-      placeholder="filter by country..."
+      size="middle"
+      placeholder="Search for a country..."
       prefix={<SearchOutlined />}
       value={filterCriterias.inputValue}
       onChange={(e) => {

@@ -88,10 +88,10 @@ function MyButton({ setContinent, filterCriterias }) {
   );
 
   return (
-    <Dropdown overlay={menu} trigger={["click"]} arrow placement="topRight">
-      <Button size="small">
+    <Dropdown overlay={menu} trigger={["click"]} arrow placement="bottomLeft">
+      <Button size="middle">
         <FilterFilled />
-        Button
+        Filter by continent
       </Button>
     </Dropdown>
   );

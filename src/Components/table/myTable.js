@@ -1,11 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Row, Col } from "antd";
-// import { SearchOutlined } from "@ant-design/icons";
+import { Row, Col, Typography } from "antd";
+
+import { TableOutlined } from "@ant-design/icons";
 import Button from "./button";
 import MainTable from "./mainTable";
 import Input from "./input";
 import { UserContext } from "../Context/context";
 
+const { Title } = Typography;
 function MyTable() {
   const { countriesForTable } = useContext(UserContext);
 
@@ -98,28 +100,47 @@ function MyTable() {
   // };
 
   return (
-    <div>
+    <div style={{ margin: "0 auto", width: "95%" }}>
       <Row>
-        <Col>
-          <Button
-            setContinent={setFilterCriterias}
-            filterCriterias={filterCriterias}
-          />
-        </Col>
         <Col span={24}>
-          <Input
-            // searchFilter={clickSearchHandlerFunc}
-            filterCriterias={filterCriterias}
-            setInputValue={setFilterCriterias}
-          />
+          <Row
+            style={{ backgroundColor: "rgba(252, 165, 165)" }}
+            justify="center"
+          >
+            <Col span={24}>
+              <Title
+                style={{ textAlign: "center", padding: " 10px 0 3px" }}
+                level={3}
+              >
+                <TableOutlined /> Table Data:
+              </Title>
+            </Col>
+            <Col span={11}>
+              <div style={{ padding: "7px 2px" }}>
+                <Input
+                  // searchFilter={clickSearchHandlerFunc}
+                  filterCriterias={filterCriterias}
+                  setInputValue={setFilterCriterias}
+                />
+              </div>
+            </Col>
+            <Col>
+              <div style={{ padding: " 7px 2px" }}>
+                <Button
+                  setContinent={setFilterCriterias}
+                  filterCriterias={filterCriterias}
+                />
+              </div>
+            </Col>
+          </Row>
         </Col>
-        {/* <Col>
-         
-        </Col> */}
+
+        <Col>
+          <div>
+            <MainTable tableData={tableDataWithSum} />
+          </div>
+        </Col>
       </Row>
-      <div>
-        <MainTable tableData={tableDataWithSum} />
-      </div>
     </div>
   );
 }
