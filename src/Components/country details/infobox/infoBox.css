@@ -1,0 +1,27 @@
+.cardTitle {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid rgb(237, 240, 240);
+  margin: -10px 0 0 0;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.content.c-1 {
+  /* margin-bottom: 15px; */
+}
+
+.content.c-2 {
+  /* margin-top: 15px; */
+}

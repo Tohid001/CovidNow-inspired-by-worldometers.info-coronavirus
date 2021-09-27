@@ -8,6 +8,7 @@ const { Title } = Typography;
 const { Option } = Select;
 
 function HeaderContainer() {
+  console.log("headercontainer is rendering");
   const { isDataLoaded, country, countryInfo, countries, dispatch } =
     useContext(UserContext);
 

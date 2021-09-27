@@ -44,8 +44,8 @@ function UserProvider(props) {
       await fetch("https://disease.sh/v3/covid-19/countries")
         .then((res) => res.json())
         .then((data) => {
-          console.log("countries");
-          console.log(data);
+          // console.log("countries");
+          // console.log(data);
           const countries = data.map((country) => {
             return {
               name: country.country,
@@ -72,8 +72,8 @@ function UserProvider(props) {
       await fetch(url)
         .then((res) => res.json())
         .then((data) => {
-          console.log("countryinfos ");
-          console.log(data);
+          // console.log("countryinfos ");
+          // console.log(data);
           dispatch({ type: "setCountryInfo", value: data });
         });
       const countryName =

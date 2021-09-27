@@ -9,6 +9,7 @@ import { UserContext } from "../Context/context";
 
 const { Title } = Typography;
 function MyTable() {
+  console.log("myTAble is rendering");
   const { countriesForTable } = useContext(UserContext);
 
   const [tableDataWithSum, setTabledDataWithSum] = useState({

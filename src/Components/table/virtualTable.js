@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "antd/dist/antd.css";
 import "./table.css";
+import { Link } from "react-router-dom";
 import { VariableSizeGrid as Grid } from "react-window";
 // import ResizeObserver from "rc-resize-observer";
 import classNames from "classnames";
@@ -100,7 +101,7 @@ export default function VirtualTable(props) {
             //   })}
             //   style={style}
             // >
-            //   {rawData[rowIndex][mergedColumns[columnIndex].dataIndex]}
+            //   {r awData[rowIndex][mergedColumns[columnIndex].dataIndex]}
             // </div>
 
             typeof data === "string" ? (
@@ -116,7 +117,7 @@ export default function VirtualTable(props) {
                   paddingLeft: "5px",
                 }}
               >
-                {data ? data : ""}
+                {data ? <Link to={`/country/${data}`}>{data}</Link> : ""}
               </div>
             ) : (
               <div
