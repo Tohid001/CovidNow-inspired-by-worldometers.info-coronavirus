@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Spinner from "../spinner";
 import HeaderContainer from "../headerContainer";
-import InfoBoxContainer from "../infobox/infoBoxContainer";
+
 import MyTable from "../table/myTable";
 import { UserContext } from "../Context/context";
 import "antd/dist/antd.css";
@@ -19,17 +19,16 @@ function AppLeft() {
   return (
     <div>
       <HeaderContainer />
-      {countryInfo ? (
+      {/* {countryInfo ? (
         <InfoBoxContainer />
       ) : (
         <Spinner tip="Loading Primary Infos..." />
-      )}
+      )} */}
       {countriesForTable ? (
         <MyTable />
       ) : (
         <Spinner tip="Loading Detailed Infos..." />
       )}
-      <Dummy />
     </div>
   );
 }

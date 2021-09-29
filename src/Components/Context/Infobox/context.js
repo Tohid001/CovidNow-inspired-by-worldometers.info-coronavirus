@@ -68,11 +68,31 @@ function UserProvider(props) {
   //get CountryInfos
   useEffect(() => {
     const getCountryInfos = async () => {
-      const url =
+      const url_1 =
         country === "worldwide"
           ? " https://disease.sh/v3/covid-19/all"
           : ` https://disease.sh/v3/covid-19/countries/${country}`;
-      const data = await fetch(url).then((res) => res.json());
+      const url_2 =
+        country === "worldwide"
+          ? "https://disease.sh/v3/covid-19/all?yesterday=yesterday"
+          : ` https://disease.sh/v3/covid-19/countries/${country}?yesterday=yesterday`;
+
+      //   Promise.all([fetch(url_1),fetch(url_2)]).then((res)=> res.forEach((item)=>item.json()))
+
+      const promise1 = await fetch(url_1).then((res) => res.json());
+      const promise2 = await fetch(url_2).then((res) => res.json());
+      const datas = await Promise.all([promise1, promise2]);
+      const dataObjects = datas.reduce(
+        (acc, cur, index) => ({
+          ...acc,
+          [index == 0 ? "today" : "yesterday"]: cur,
+        }),
+        {}
+      );
+
+      console.log(dataObjects);
+
+      // const data = await fetch(url_1).then((res) => res.json());
       // .then((data) => {
       //   // console.log("countryinfos ");
       //   // console.log(data);
@@ -86,7 +106,7 @@ function UserProvider(props) {
 
       dispatch({
         type: "setInitial",
-        value: { isDataLoaded: true, countryInfo: data },
+        value: { isDataLoaded: true, countryInfo: dataObjects },
       });
     };
     country && getCountryInfos();

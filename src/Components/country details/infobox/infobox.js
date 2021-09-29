@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../Context/Infobox/context";
 import "./infoBox.css";
 import "antd/dist/antd.css";
@@ -13,12 +13,12 @@ function Infobox({ title, cases, total }) {
   return (
     <div>
       <Card
-        headStyle={{
-          padding: "0px",
-          // margin: "-15px  0 0 0",
-          borderStyle: "none",
-        }}
-        bodyStyle={{ padding: "0px" }}
+        // headStyle={{
+        //   padding: "0px",
+        //   // margin: "-15px  0 0 0",
+        //   borderStyle: "none",
+        // }}
+        bodyStyle={{ padding: "8px 0 2px 0" }}
         style={{
           // border: ".5px solid white",
           borderRadius: "10px",
@@ -33,50 +33,46 @@ function Infobox({ title, cases, total }) {
           // backgroundColor: "red",
         }}
         bordered={isDataLoaded ? false : true}
-        title={
-          <div className="cardTitle">
-            {!isDataLoaded ? (
-              <SkeletonElement type="title" />
-            ) : (
-              <Title level={5}>{` ${title}:`}</Title>
-            )}
-          </div>
-        }
+        // title={
+        //   <div className="cardTitle">
+        //     {!isDataLoaded ? (
+        //       <SkeletonElement type="title" />
+        //     ) : (
+        //       <Title level={5}>{` Today ${title}:`}</Title>
+        //     )}
+        //   </div>
+        // }
       >
-        <div className="content-container">
-          <div className="content c-1">
+        <div>
+          <div className="content">
             {!isDataLoaded ? (
               <SkeletonElement type="title" />
             ) : (
-              <Title level={5} style={{ fontSize: 15, marginBottom: "-3px" }}>
-                Today
-              </Title>
+              <p
+                style={{
+                  fontSize: 14,
+                  fontWeight: 400,
+                  marginBottom: "-1px",
+                  textAlign: "center",
+                  // wordBreak: "break-all",
+                }}
+              >
+                {window.innerWidth > 370 ? (
+                  `New ${title}`
+                ) : (
+                  <span>
+                    New<br></br>
+                    {`${title}`}
+                  </span>
+                )}
+              </p>
             )}
             {!isDataLoaded ? (
               <SkeletonElement type="text" />
             ) : (
               <Statistic
                 value={cases}
-                valueStyle={{ fontWeight: "normal", fontSize: 15 }}
-              />
-            )}
-          </div>
-          <div className="content c-2">
-            {!isDataLoaded ? (
-              <SkeletonElement type="title" />
-            ) : (
-              <div>
-                <Title level={5} style={{ fontSize: 15, marginBottom: "-3px" }}>
-                  Total
-                </Title>
-              </div>
-            )}
-            {!isDataLoaded ? (
-              <SkeletonElement type="text" />
-            ) : (
-              <Statistic
-                value={total}
-                valueStyle={{ fontWeight: "normal", fontSize: 15 }}
+                valueStyle={{ fontWeight: "bold", fontSize: 15 }}
               />
             )}
           </div>

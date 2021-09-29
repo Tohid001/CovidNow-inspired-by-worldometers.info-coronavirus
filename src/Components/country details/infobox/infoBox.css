@@ -1,7 +1,7 @@
 .cardTitle {
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid rgb(237, 240, 240);
+  border-bottom: 1px solid rgb(220, 220, 220);
   margin: -10px 0 0 0;
 }
 
@@ -15,13 +15,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+  /* padding: ; */
 }
 
 .content.c-1 {
-  /* margin-bottom: 15px; */
+  margin-bottom: 15px;
 }
 
 .content.c-2 {
-  /* margin-top: 15px; */
+  margin-top: 15px;
+}
+
+.content div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* margin-bottom: 15px; */
 }

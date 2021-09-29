@@ -15,7 +15,7 @@ function CountryNameWithFlag({ country: myCountry }) {
       <Space align="center" size={20}>
         <SkeletonElement
           type="avatar"
-          url={isDataLoaded ? info.countryInfo.flag : null}
+          url={isDataLoaded ? info.today.countryInfo.flag : null}
         />
         {!isDataLoaded ? (
           <SkeletonElement type="title" />

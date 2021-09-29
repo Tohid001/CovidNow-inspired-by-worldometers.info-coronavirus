@@ -1,12 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useLayoutEffect } from "react";
 import { UserContext } from "../Context/Infobox/context";
 import "antd/dist/antd.css";
 import { Typography, Row, Col, Select, Avatar, Skeleton } from "antd";
 
 import CountryNameWithFlag from "./infobox/countryNameWithFlag";
 import InfoBox from "./infobox/infobox";
+import StatCard from "./infobox/StatCard";
 
 function CuntryDetails({ country }) {
+  /////////////////////////
+
   // const [showGraph, setShowGraph] = useState(false);
   const { dispatch, initial } = useContext(UserContext);
   const { isDataLoaded, countryInfo: info } = initial;
@@ -21,8 +24,8 @@ function CuntryDetails({ country }) {
   const infoBoxSpan = { xs: 7, sm: 7, md: 7 };
 
   return (
-    <div style={{ padding: "10px" }}>
-      {/* <Row gutter={[16, 24]}>
+    <div style={{ padding: "5px" }}>
+      {/* <Row gutter0={[16, 24]}>
         <Col span={24}>
           <Row justify="center">
             <Col>
@@ -75,27 +78,34 @@ function CuntryDetails({ country }) {
               </Row>
             </Col>
             <Col span={24}>
-              <Row justify="center" gutter={{ xs: 7, md: 20 }}>
+              <Row justify="center" gutter={[{ xs: 7, sm: 7, md: 20 }, 10]}>
                 <Col xs={{ span: 8 }} sm={{ span: 8 }} md={{ span: 4 }}>
                   <InfoBox
                     title="Cases"
-                    cases={isDataLoaded ? info.todayCases : null}
-                    total={isDataLoaded ? info.cases : null}
+                    cases={isDataLoaded ? info.today.todayCases : null}
+                    total={isDataLoaded ? info.today.cases : null}
                   />
                 </Col>
                 <Col xs={{ span: 8 }} sm={{ span: 8 }} md={{ span: 4 }}>
                   <InfoBox
                     title="Recovered"
-                    cases={isDataLoaded ? info.todayRecovered : null}
-                    total={isDataLoaded ? info.recovered : null}
+                    cases={isDataLoaded ? info.today.todayRecovered : null}
+                    total={isDataLoaded ? info.today.recovered : null}
                   />
                 </Col>
                 <Col xs={{ span: 8 }} sm={{ span: 8 }} md={{ span: 4 }}>
                   <InfoBox
                     title="Deaths"
-                    cases={isDataLoaded ? info.todayDeaths : null}
-                    total={isDataLoaded ? info.deaths : null}
+                    cases={isDataLoaded ? info.today.todayDeaths : null}
+                    total={isDataLoaded ? info.today.deaths : null}
                   />
+                </Col>
+                <Col span={24}>
+                  <Row justify="center">
+                    <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }}>
+                      <StatCard />
+                    </Col>
+                  </Row>
                 </Col>
               </Row>
             </Col>
