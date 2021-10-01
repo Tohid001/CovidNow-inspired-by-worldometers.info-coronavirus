@@ -1,4 +1,5 @@
 import "./App.css";
+import { Pie, Line } from "react-chartjs-2";
 import { UserProvider } from "./Components/Context/context";
 import AppLeft from "./Components/app-left/appLeft";
 import InfoIndex from "./Components/country details/index";
@@ -15,6 +16,15 @@ function App() {
         <ScrollToTop />
         <Route exact path="/">
           <AppLeft />
+          <Pie
+            options={{ legend: { position: "bottom" } }}
+            data={{
+              labels: ["red", "blue", "green"],
+              datasets: [
+                { data: [1, 2, 3], backgroundColor: ["red", "blue", "green"] },
+              ],
+            }}
+          />
         </Route>
         <Route exact path="/country/:countryName">
           <ScrollToTop />

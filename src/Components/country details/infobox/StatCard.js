@@ -1,16 +1,43 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { UserContext } from "../../Context/Infobox/context";
 import "./infoBox.css";
 import "antd/dist/antd.css";
-import { Card, Typography, Statistic, Row, Col } from "antd";
-import StatCardModule from "./StatCardModule";
+import { Card, Typography, Row, Col } from "antd";
+
 import SkeletonElement from "../../Skeletons/skeletonElement";
+import GraphSwitch from "./switch";
+import ShowStat from "./showStat";
+import ShowPie from "./showPie";
 
 const { Title } = Typography;
 
-function StatCard({ title, cases, total }) {
+function StatCard() {
+  const [showGraph, setShowGraph] = useState(false);
+
   const { initial, country } = useContext(UserContext);
   const { isDataLoaded, countryInfo: info } = initial;
+
+  const titles = isDataLoaded
+    ? {
+        totalCases: `Total Cases (${(
+          (info.today.cases / info.today.population) *
+          100
+        ).toFixed(2)}% of the population)`,
+        totalRecovered: `Total Recovered / Discharged (${(
+          (info.today.recovered / info.today.cases) *
+          100
+        ).toFixed(2)}%)`,
+        totalDeaths: `Total Deaths (${(
+          (info.today.deaths / info.today.cases) *
+          100
+        ).toFixed(2)}%)`,
+        totalActiveCases: `Active Cases/ Currently Infected (${(
+          (info.today.active / info.today.cases) *
+          100
+        ).toFixed(2)}%)`,
+      }
+    : null;
+
   return (
     <div>
       <Card
@@ -19,10 +46,10 @@ function StatCard({ title, cases, total }) {
           // margin: "-15px  0 0 0",
           borderStyle: "none",
         }}
-        bodyStyle={{ padding: "8px 0 2px 0" }}
+        bodyStyle={{ padding: "0px 3px 2px 3px" }}
         style={{
           borderRadius: "10px",
-          backgroundColor: isDataLoaded ? "rgb(242, 243, 247)" : null,
+          backgroundColor: isDataLoaded ? "rgb(232, 233, 237)" : null,
         }}
         bordered={isDataLoaded ? false : true}
         title={
@@ -35,48 +62,8 @@ function StatCard({ title, cases, total }) {
           </div>
         }
       >
-        <div>
-          <Row gutter={5}>
-            <Col span={24}>
-              <Row justify="center">
-                <Col>
-                  <StatCardModule
-                    title="Total Cases"
-                    data1={isDataLoaded ? info.today.cases : null}
-                    data2={isDataLoaded ? info.yesterday.cases : null}
-                  />
-                </Col>
-              </Row>
-            </Col>
-            <Col span={8}>
-              <StatCardModule
-                title="Total Recovered / Discharged"
-                data1={isDataLoaded ? info.today.recovered : null}
-                data2={isDataLoaded ? info.yesterday.recovered : null}
-                color=" rgb(52, 186, 113)"
-                divider={true}
-              />
-            </Col>
-            <Col span={8}>
-              <StatCardModule
-                title="Total Deaths"
-                data1={isDataLoaded ? info.today.deaths : null}
-                data2={isDataLoaded ? info.yesterday.deaths : null}
-                color="rgb(204, 80, 80)"
-                divider={true}
-              />
-            </Col>
-            <Col span={8}>
-              <StatCardModule
-                title="Active Cases/ Currently Infected
-                "
-                data1={isDataLoaded ? info.today.active : null}
-                data2={isDataLoaded ? info.yesterday.active : null}
-                color="rgb(125, 130, 127)"
-              />
-            </Col>
-          </Row>
-        </div>
+        <GraphSwitch showGraphHandler={setShowGraph} />
+        {showGraph ? <ShowPie /> : <ShowStat titles={titles} />}
       </Card>
     </div>
   );

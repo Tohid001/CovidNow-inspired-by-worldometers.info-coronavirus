@@ -17,11 +17,7 @@ function StatCardModule({ title, data1, data2, color, divider }) {
       <SkeletonElement type="text" />
     </div>
   ) : (
-    <div
-      className="content"
-      // style={{ borderRight: divider ? "1px solid rgb(172, 170, 170)" : null }}
-    >
-      {" "}
+    <div className="content">
       <p
         style={{
           color,
@@ -32,31 +28,6 @@ function StatCardModule({ title, data1, data2, color, divider }) {
       >
         {Intl.NumberFormat("en-US").format(data1)}
       </p>
-      {/* <div>
-        <p
-          style={{
-            color,
-            textAlign: "center",
-            fontSize: "15px",
-            fontWeight: "bold",
-          }}
-        >
-          {Intl.NumberFormat("en-US").format(data1)}
-        </p>
-        <div style={{ marginBottom: "20px", marginTop: "-20px" }}>
-          <small style={{ fontWeight: 600 }}>
-            {`(${Math.abs(data1 - data2) || ""} ${
-              data1 > data2 ? (
-                <ArrowUpOutlined />
-              ) : data1 == data2 ? (
-                ""
-              ) : (
-                <ArrowDownOutlined />
-              )
-            })`}
-          </small>
-        </div>
-      </div> */}
       <p
         style={{
           fontSize: 14,
@@ -67,11 +38,7 @@ function StatCardModule({ title, data1, data2, color, divider }) {
           // wordBreak: "break-all",
         }}
       >
-        {title == "Total Cases"
-          ? `${title} (${((data1 / info.today.population) * 100).toFixed(
-              2
-            )}% of the population)`
-          : `${title} (${((data1 / info.today.cases) * 100).toFixed(2)}%)`}
+        {title}
       </p>
     </div>
   );

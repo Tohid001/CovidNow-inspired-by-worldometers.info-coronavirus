@@ -18,7 +18,7 @@ function CountryNameWithFlag({ country: myCountry }) {
           url={isDataLoaded ? info.today.countryInfo.flag : null}
         />
         {!isDataLoaded ? (
-          <SkeletonElement type="title" />
+          <SkeletonElement type="title" width="100px" />
         ) : (
           <Title level={3}>{country}</Title>
         )}
