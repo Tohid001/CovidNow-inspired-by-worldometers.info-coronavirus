@@ -79,21 +79,21 @@ function CuntryDetails({ country }) {
             </Col>
             <Col span={24}>
               <Row justify="center" gutter={[{ xs: 7, sm: 7, md: 20 }, 10]}>
-                <Col xs={{ span: 8 }} sm={{ span: 8 }} md={{ span: 4 }}>
+                <Col xs={{ span: 8 }} sm={{ span: 5 }} md={{ span: 5 }}>
                   <InfoBox
                     title="Cases"
                     cases={isDataLoaded ? info.today.todayCases : null}
                     total={isDataLoaded ? info.today.cases : null}
                   />
                 </Col>
-                <Col xs={{ span: 8 }} sm={{ span: 8 }} md={{ span: 4 }}>
+                <Col xs={{ span: 8 }} sm={{ span: 5 }} md={{ span: 5 }}>
                   <InfoBox
                     title="Recovered"
                     cases={isDataLoaded ? info.today.todayRecovered : null}
                     total={isDataLoaded ? info.today.recovered : null}
                   />
                 </Col>
-                <Col xs={{ span: 8 }} sm={{ span: 8 }} md={{ span: 4 }}>
+                <Col xs={{ span: 8 }} sm={{ span: 5 }} md={{ span: 5 }}>
                   <InfoBox
                     title="Deaths"
                     cases={isDataLoaded ? info.today.todayDeaths : null}
@@ -102,7 +102,7 @@ function CuntryDetails({ country }) {
                 </Col>
                 <Col span={24}>
                   <Row justify="center">
-                    <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 12 }}>
+                    <Col xs={{ span: 24 }} sm={{ span: 15 }} md={{ span: 15 }}>
                       <StatCard />
                     </Col>
                   </Row>

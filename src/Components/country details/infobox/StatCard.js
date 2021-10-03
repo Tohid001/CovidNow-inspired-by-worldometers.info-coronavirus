@@ -7,7 +7,7 @@ import { Card, Typography, Row, Col } from "antd";
 import SkeletonElement from "../../Skeletons/skeletonElement";
 import GraphSwitch from "./switch";
 import ShowStat from "./showStat";
-import ShowPie from "./showPie";
+import Chart from "./Chart";
 
 const { Title } = Typography;
 
@@ -46,10 +46,11 @@ function StatCard() {
           // margin: "-15px  0 0 0",
           borderStyle: "none",
         }}
-        bodyStyle={{ padding: "0px 3px 2px 3px" }}
+        bodyStyle={{ padding: "0px 3px 3px 3px" }}
         style={{
           borderRadius: "10px",
           backgroundColor: isDataLoaded ? "rgb(232, 233, 237)" : null,
+          // paddingBottom: showGraph ? " 3px" : null,
         }}
         bordered={isDataLoaded ? false : true}
         title={
@@ -63,7 +64,8 @@ function StatCard() {
         }
       >
         <GraphSwitch showGraphHandler={setShowGraph} />
-        {showGraph ? <ShowPie /> : <ShowStat titles={titles} />}
+
+        {showGraph ? <Chart /> : <ShowStat titles={titles} />}
       </Card>
     </div>
   );
