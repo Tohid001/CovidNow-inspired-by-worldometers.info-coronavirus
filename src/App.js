@@ -16,7 +16,7 @@ function App() {
         <ScrollToTop />
         <Route exact path="/">
           <AppLeft />
-          <Pie
+          {/* <Pie
             options={{ legend: { position: "bottom" } }}
             data={{
               labels: ["red", "blue", "green"],
@@ -24,7 +24,7 @@ function App() {
                 { data: [1, 2, 3], backgroundColor: ["red", "blue", "green"] },
               ],
             }}
-          />
+          /> */}
         </Route>
         <Route exact path="/country/:countryName">
           <ScrollToTop />
